@@ -13,7 +13,7 @@ final class CustomerEmail implements ComparableInterface
 
     private function __construct(string $email)
     {
-        Assertion::email($email,\sprintf('\'%s\' email is invalid', $email));
+        Assertion::email($email, \sprintf('\'%s\' email is invalid', $email));
 
         $this->email = $email;
     }

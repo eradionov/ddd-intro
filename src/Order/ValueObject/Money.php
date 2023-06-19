@@ -22,7 +22,8 @@ final class Money implements ComparableInterface
         return new self($amount, $currency);
     }
 
-    private function __construct(int $amount, Currency $currency) {
+    private function __construct(int $amount, Currency $currency)
+    {
         Assertion::min($amount, 0, 'Money amount can\'t be negative');
 
         $this->amount = $amount;

@@ -13,9 +13,9 @@ final class Currency implements ComparableInterface
     private function __construct(string $isoCode)
     {
         // TODO: it's just a simple example, we do not need complicate with different iso codes
-        if (!preg_match('/USD|EUR$/', $isoCode)) {
+        if (false === \preg_match('/USD|EUR$/', $isoCode)) {
             throw new \InvalidArgumentException(
-                sprintf('\'%s\' is not a valid ISO code', $isoCode)
+                \sprintf('\'%s\' is not a valid ISO code', $isoCode)
             );
         }
 

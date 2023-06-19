@@ -30,7 +30,8 @@ class CustomerNameTest extends TestCase
 
         $this->assertEquals(
             \sprintf('%s %s', self::VALID_FIRSTNAME, self::VALID_LASTNAME),
-            $customerName->getFullName());
+            $customerName->getFullName()
+        );
     }
 
     public static function invalidCustomerName(): array

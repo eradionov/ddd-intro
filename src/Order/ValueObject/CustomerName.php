@@ -23,8 +23,8 @@ final class CustomerName
         Assertion::minLength($lastName, self::MIN_CHARACTER_LENGTH);
         Assertion::regex($lastName, self::VALID_NAME_FORMAT);
 
-        $this->firstName = ucfirst($firstName);
-        $this->lastName = ucfirst($lastName);
+        $this->firstName = \ucfirst($firstName);
+        $this->lastName = \ucfirst($lastName);
     }
 
     public static function fromFistAndLastName(string $firstName, string $lastName): self
