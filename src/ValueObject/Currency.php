@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace JD\DDD\ValueObject;
 
+use Assert\Assertion;
+use JD\DDD\Common\ComparableInterface;
+
 final class Currency implements ComparableInterface
 {
     private string $isoCode;
 
-    public function __construct(string $isoCode)
+    private function __construct(string $isoCode)
     {
-        // TODO: it's just a simple example
+        // TODO: it's just a simple example, we do not need complicate with different iso codes
         if (!preg_match('/USD|EUR$/', $isoCode)) {
             throw new \InvalidArgumentException(
                 sprintf('\'%s\' is not a valid ISO code', $isoCode)
@@ -18,6 +21,11 @@ final class Currency implements ComparableInterface
         }
 
         $this->isoCode = $isoCode;
+    }
+
+    public static function fromIsoCode(string $isoCode): self
+    {
+        return new self($isoCode);
     }
 
     public function getIsoCode(): string

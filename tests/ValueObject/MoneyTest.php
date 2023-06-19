@@ -34,7 +34,7 @@ class MoneyTest extends TestCase
 
     public function testChangeAmount(): void
     {
-        $money = Money::fromAmountAndCurrency(100, new Currency(self::CURRENCY));
+        $money = Money::fromAmountAndCurrency(100, Currency::fromIsoCode(self::CURRENCY));
         $changedMoney = $money->increaseAmount(200);
 
         $this->assertNotSame($money, $changedMoney);
@@ -46,7 +46,7 @@ class MoneyTest extends TestCase
 
     public function testCreateFromCurrency(): void
     {
-        $money = Money::fromCurrency(new Currency(self::CURRENCY));
+        $money = Money::fromCurrency(Currency::fromIsoCode(self::CURRENCY));
 
         $this->assertEquals(0, $money->getAmount());
         $this->assertEquals(self::CURRENCY, $money->getCurrency()->getIsoCode());
@@ -54,8 +54,8 @@ class MoneyTest extends TestCase
 
     public function testSameMoney(): void
     {
-        $money = Money::fromCurrency(new Currency(self::CURRENCY));
-        $moneySame = Money::fromCurrency(new Currency(self::CURRENCY));
+        $money = Money::fromCurrency(Currency::fromIsoCode(self::CURRENCY));
+        $moneySame = Money::fromCurrency(Currency::fromIsoCode(self::CURRENCY));
 
         $this->assertNotSame($moneySame, $money);
         $this->assertTrue($money->equals($moneySame));
@@ -64,15 +64,15 @@ class MoneyTest extends TestCase
     public static function amountWithCurrencyNegative(): array
     {
         return [
-            [-1, new Currency(self::CURRENCY)],
+            [-1, Currency::fromIsoCode(self::CURRENCY)],
         ];
     }
 
     public static function amountWithCurrencyPositive(): array
     {
         return [
-            [100, new Currency(self::CURRENCY)],
-            [0, new Currency(self::CURRENCY)],
+            [100, Currency::fromIsoCode(self::CURRENCY)],
+            [0, Currency::fromIsoCode(self::CURRENCY)],
         ];
     }
 }

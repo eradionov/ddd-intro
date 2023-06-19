@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace JD\DDD\ValueObject;
 
+use Assert\Assertion;
+use JD\DDD\Common\ComparableInterface;
+
 final class Money implements ComparableInterface
 {
     private int $amount;
@@ -19,14 +22,11 @@ final class Money implements ComparableInterface
         return new self($amount, $currency);
     }
 
-    public function __construct(int $amount, Currency $currency) {
-        $this->setAmount($amount);
-        $this->setCurrency($currency);
-    }
+    private function __construct(int $amount, Currency $currency) {
+        Assertion::min($amount, 0, 'Money amount can\'t be negative');
 
-    public function getAmount(): int
-    {
-        return $this->amount;
+        $this->amount = $amount;
+        $this->currency = $currency;
     }
 
     public function increaseAmount(int $amountToIncrease): self
@@ -35,6 +35,11 @@ final class Money implements ComparableInterface
             $this->getAmount() + $amountToIncrease,
             $this->currency
         );
+    }
+
+    public function getAmount(): int
+    {
+        return $this->amount;
     }
 
     public function getCurrency(): Currency
@@ -47,19 +52,5 @@ final class Money implements ComparableInterface
         return $comparable instanceof self
             && $comparable->getCurrency()->equals($this->currency)
             && $comparable->getAmount() === $this->amount;
-    }
-
-    private function setAmount(int $amount): void
-    {
-        if ($amount < 0) {
-            throw new \InvalidArgumentException('Money amount can\'t be negative');
-        }
-
-        $this->amount = $amount;
-    }
-
-    private function setCurrency(Currency $currency): void
-    {
-        $this->currency = $currency;
     }
 }

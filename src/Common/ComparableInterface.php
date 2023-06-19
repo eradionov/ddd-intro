@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\ValueObject;
+namespace JD\DDD\Common;
 
 interface ComparableInterface
 {

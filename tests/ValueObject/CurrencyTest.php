@@ -21,21 +21,21 @@ class CurrencyTest extends TestCase
         $this->expectExceptionMessage(\sprintf(self::ERROR_MESSAGE_EXP, $isoCode));
         $this->expectException(\InvalidArgumentException::class);
 
-        new Currency($isoCode);
+        Currency::fromIsoCode($isoCode);
     }
 
     #[DataProvider('currencyCorrectIsoCode')]
     public function testCorrectCurrencyCode(string $isoCode): void
     {
-        $currency = new Currency($isoCode);
+        $currency = Currency::fromIsoCode($isoCode);
 
         $this->assertEquals($isoCode, $currency->getIsoCode());
     }
 
     public function testSameCurrencyCode(): void
     {
-        $currency = new Currency(self::CURRENCY_USD);
-        $currencySame = new Currency(self::CURRENCY_USD);
+        $currency = Currency::fromIsoCode(self::CURRENCY_USD);
+        $currencySame = Currency::fromIsoCode(self::CURRENCY_USD);
 
         $this->assertNotSame($currency, $currencySame);
         $this->assertTrue($currency->equals($currencySame));
