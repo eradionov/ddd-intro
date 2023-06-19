@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\ValueObject;
+namespace JD\DDD\Order\ValueObject;
 
-use Assert\Assertion;
 use JD\DDD\Common\ComparableInterface;
 
 final class Currency implements ComparableInterface

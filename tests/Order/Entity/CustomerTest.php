@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Entity;
+namespace Order\Entity;
 
 use PHPUnit\Framework\TestCase;
 

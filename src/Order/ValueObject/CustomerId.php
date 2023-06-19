@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Entity\ValueObject;
+namespace JD\DDD\Order\ValueObject;
 
 use Assert\Assertion;
 use JD\DDD\Common\ComparableInterface;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Entity;
+namespace JD\DDD\Order\Entity;
 
-use JD\DDD\Entity\ValueObject\CustomerEmail;
-use JD\DDD\Entity\ValueObject\CustomerId;
-use JD\DDD\Entity\ValueObject\CustomerName;
+use JD\DDD\Order\ValueObject\CustomerEmail;
+use JD\DDD\Order\ValueObject\CustomerId;
+use JD\DDD\Order\ValueObject\CustomerName;
 
 final class Customer
 {

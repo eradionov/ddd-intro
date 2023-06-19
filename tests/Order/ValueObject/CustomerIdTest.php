@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Entity\ValueObject;
+namespace Order\ValueObject;
 
-use JD\DDD\Entity\ValueObject\CustomerId;
+use JD\DDD\Order\ValueObject\CustomerId;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
