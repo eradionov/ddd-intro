@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Order\ValueObject;
+namespace Sales\ValueObject;
 
-use JD\DDD\Order\ValueObject\CustomerEmail;
+use JD\DDD\Sales\ValueObject\CustomerEmail;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

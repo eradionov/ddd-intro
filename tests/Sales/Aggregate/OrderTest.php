@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Order\Entity;
+namespace Sales\Aggregate;
 
 use PHPUnit\Framework\TestCase;
 
-class CustomerTest extends TestCase
+class OrderTest extends TestCase
 {
+
 }

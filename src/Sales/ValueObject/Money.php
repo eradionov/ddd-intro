@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Order\ValueObject;
+namespace JD\DDD\Sales\ValueObject;
 
 use Assert\Assertion;
 use JD\DDD\Common\ComparableInterface;
 
 final class Money implements ComparableInterface
 {
+    public const CURRENCY_USD = 'USD';
+    public const CURRENCY_EUR = 'EUR';
     private int $amount;
     private Currency $currency;
 
@@ -20,6 +22,11 @@ final class Money implements ComparableInterface
     public static function fromAmountAndCurrency(int $amount, Currency $currency): self
     {
         return new self($amount, $currency);
+    }
+
+    public function fromAmount(int $amount): self
+    {
+        return new self($amount, $this->currency);
     }
 
     private function __construct(int $amount, Currency $currency)

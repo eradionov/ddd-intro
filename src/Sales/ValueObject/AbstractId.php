@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Order\ValueObject;
+namespace JD\DDD\Sales\ValueObject;
 
 use Assert\Assertion;
 use JD\DDD\Common\ComparableInterface;
 
-final class CustomerId implements ComparableInterface
+abstract class AbstractId implements ComparableInterface
 {
     private string $id;
 
     private function __construct(string $id)
     {
-        Assertion::uuid($id, 'Customer Id is not valid');
+        Assertion::uuid($id, 'Id is not valid');
 
         $this->id = $id;
     }
@@ -23,13 +23,13 @@ final class CustomerId implements ComparableInterface
         return $this->id;
     }
 
-    public static function fromString(string $customerId): self
+    public static function fromString(string $orderId): static
     {
-        return new self($customerId);
+        return new static($orderId);
     }
 
     public function equals(object $comparable): bool
     {
-        return $comparable instanceof self && $this->id === $comparable->getId();
+        return $comparable instanceof static && $this->id === $comparable->getId();
     }
 }

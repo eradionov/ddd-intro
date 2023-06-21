@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Order\ValueObject;
+namespace Sales\ValueObject;
 
-use JD\DDD\Order\ValueObject\Currency;
-use JD\DDD\Order\ValueObject\Money;
+use JD\DDD\Sales\ValueObject\Currency;
+use JD\DDD\Sales\ValueObject\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Order\ValueObject;
+namespace Sales\ValueObject;
 
-use JD\DDD\Order\ValueObject\CustomerId;
+use JD\DDD\Sales\ValueObject\CustomerId;
+use JD\DDD\Sales\ValueObject\OrderId;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -34,6 +35,15 @@ class CustomerIdTest extends TestCase
 
         $this->assertNotSame($customerUid, $customerUid2);
         $this->assertTrue($customerUid->equals($customerUid2));
+    }
+
+    public function testNotEqualUid(): void
+    {
+        $customerUid = CustomerId::fromString(self::VALID_UUID);
+        $orderId = OrderId::fromString(self::VALID_UUID);
+
+        $this->assertNotSame($customerUid, $orderId);
+        $this->assertFalse($customerUid->equals($orderId));
     }
 
     public static function invalidCustomerUid(): array

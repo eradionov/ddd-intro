@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Order\ValueObject;
+namespace JD\DDD\Sales\ValueObject;
 
 use JD\DDD\Common\ComparableInterface;
 
@@ -13,7 +13,7 @@ final class Currency implements ComparableInterface
     private function __construct(string $isoCode)
     {
         // TODO: it's just a simple example, we do not need complicate with different iso codes
-        if (false === \preg_match('/USD|EUR$/', $isoCode)) {
+        if (\in_array(\preg_match('/USD|EUR$/', $isoCode), [0, false], true)) {
             throw new \InvalidArgumentException(
                 \sprintf('\'%s\' is not a valid ISO code', $isoCode)
             );
