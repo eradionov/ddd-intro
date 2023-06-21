@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace JD\DDD\Sales\Aggregate;
 
-use JD\DDD\Sales\ValueObject\OrderProductItem;
 use JD\DDD\Sales\Entity\Product;
 use JD\DDD\Sales\Exception\OrderDomainException;
 use JD\DDD\Sales\ValueObject\CustomerId;
 use JD\DDD\Sales\ValueObject\Money;
 use JD\DDD\Sales\ValueObject\OrderId;
+use JD\DDD\Sales\ValueObject\OrderProductItem;
 use JD\DDD\Sales\ValueObject\ProductId;
 use JD\DDD\Sales\ValueObject\ProductQuantity;
 
@@ -109,7 +109,7 @@ final class Order
 
     private function assertCurrencyConsistency(Product $product): void
     {
-        if (0 === count($this->orderProductItems)) {
+        if (0 === \count($this->orderProductItems)) {
             return;
         }
 
@@ -136,7 +136,7 @@ final class Order
         );
 
         $this->totals = Money::fromAmountAndCurrency(
-            (int) ceil(($calculatedPrice * self::ORDER_TAX_PERCENTAGE) + $calculatedPrice),
+            (int) \ceil(($calculatedPrice * self::ORDER_TAX_PERCENTAGE) + $calculatedPrice),
             $currency
         );
     }

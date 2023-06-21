@@ -15,7 +15,10 @@ final class ProductQuantity implements ComparableInterface
 
     private function __construct(int $qty)
     {
-        Assertion::between($qty, self::MIN_QTY, self::MAX_QTY,
+        Assertion::between(
+            $qty,
+            self::MIN_QTY,
+            self::MAX_QTY,
             \sprintf('Quantity should be in range \'%d\' to \'%d\'', self::MIN_QTY, self::MAX_QTY)
         );
 

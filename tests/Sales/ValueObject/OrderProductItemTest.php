@@ -20,22 +20,22 @@ class OrderProductItemTest extends TestCase
 
     #[DataProvider('invalidOrderLineQuantity')]
     public function testInvalidLineQuantity(int $qty): void
-   {
-       $this->expectExceptionMessage(
-           \sprintf(
-               self::ERROR_QUANTITY_MESSAGE,
-               OrderProductItem::MIN_PRODUCT_COUNT,
-               OrderProductItem::MAX_PRODUCT_COUNT
-           )
-       );
+    {
+        $this->expectExceptionMessage(
+            \sprintf(
+                self::ERROR_QUANTITY_MESSAGE,
+                OrderProductItem::MIN_PRODUCT_COUNT,
+                OrderProductItem::MAX_PRODUCT_COUNT
+            )
+        );
 
-       OrderProductItem::create(
-           ProductId::fromString(self::VALID_ID),
-           Money::fromCurrency(Currency::fromIsoCode(Money::CURRENCY_USD)),
-           ProductQuantity::fromQty($qty)
-       );
+        OrderProductItem::create(
+            ProductId::fromString(self::VALID_ID),
+            Money::fromCurrency(Currency::fromIsoCode(Money::CURRENCY_USD)),
+            ProductQuantity::fromQty($qty)
+        );
 
-   }
+    }
 
     public function testValidLine(): void
     {
