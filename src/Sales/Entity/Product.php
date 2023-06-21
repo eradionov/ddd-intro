@@ -12,13 +12,29 @@ use JD\DDD\Sales\ValueObject\ProductQuantity;
 
 final class Product
 {
-    public function __construct(
+    private function __construct(
         public readonly ProductId $productId,
         private ProductName $productName,
         private Money $productPrice,
-        private ProductQuantity $productQuantity,
+        private ProductQuantity $productQuantityInStock,
         private ?ProductDescription $productDescription = null,
     ) {
+    }
+
+    public static function create(
+        ProductId $productId,
+        ProductName $productName,
+        Money $productPrice,
+        ProductQuantity $productQuantity,
+        ?ProductDescription $productDescription = null,
+    ) {
+        return new self(
+            $productId,
+            $productName,
+            $productPrice,
+            $productQuantity,
+            $productDescription,
+        );
     }
 
     public function getProductPrice(): Money
@@ -33,7 +49,7 @@ final class Product
 
     public function changeQuantity(ProductQuantity $productQuantity): void
     {
-        $this->productQuantity = $productQuantity;
+        $this->productQuantityInStock = $productQuantity;
     }
 
     public function changeDescription(ProductDescription $description): void
@@ -51,9 +67,9 @@ final class Product
         return $this->productName;
     }
 
-    public function getProductQuantity(): ProductQuantity
+    public function getProductQuantityInStock(): ProductQuantity
     {
-        return $this->productQuantity;
+        return $this->productQuantityInStock;
     }
 
     public function getProductDescription(): ?ProductDescription

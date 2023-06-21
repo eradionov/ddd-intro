@@ -31,7 +31,7 @@ class OrderProductItemTest extends TestCase
 
         OrderProductItem::create(
             ProductId::fromString(self::VALID_ID),
-            Money::fromCurrency(Currency::fromIsoCode(Money::CURRENCY_USD)),
+            Money::fromCurrency(Currency::fromIsoCode(Currency::CURRENCY_USD)),
             ProductQuantity::fromQty($qty)
         );
 
@@ -42,7 +42,7 @@ class OrderProductItemTest extends TestCase
         $qty = 10;
         $price = 200;
         $productId = ProductId::fromString(self::VALID_ID);
-        $productPrice = Money::fromAmountAndCurrency($price, Currency::fromIsoCode(Money::CURRENCY_USD));
+        $productPrice = Money::fromAmountAndCurrency($price, Currency::fromIsoCode(Currency::CURRENCY_USD));
         $lineQty = ProductQuantity::fromQty($qty);
 
         $orderItem = OrderProductItem::create(
@@ -67,7 +67,7 @@ class OrderProductItemTest extends TestCase
 
         $orderItem = OrderProductItem::create(
             ProductId::fromString(self::VALID_ID),
-            Money::fromAmountAndCurrency($price, Currency::fromIsoCode(Money::CURRENCY_USD)),
+            Money::fromAmountAndCurrency($price, Currency::fromIsoCode(Currency::CURRENCY_USD)),
             ProductQuantity::fromQty($qty)
         );
 

@@ -8,6 +8,9 @@ use JD\DDD\Common\ComparableInterface;
 
 final class Currency implements ComparableInterface
 {
+    public const CURRENCY_USD = 'USD';
+    public const CURRENCY_EUR = 'EUR';
+
     private string $isoCode;
 
     private function __construct(string $isoCode)

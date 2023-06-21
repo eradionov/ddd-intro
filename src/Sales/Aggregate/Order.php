@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace JD\DDD\Sales\Aggregate;
 
 use JD\DDD\Sales\Entity\Product;
-use JD\DDD\Sales\Exception\OrderDomainException;
 use JD\DDD\Sales\ValueObject\CustomerId;
 use JD\DDD\Sales\ValueObject\Money;
 use JD\DDD\Sales\ValueObject\OrderId;
@@ -15,8 +14,8 @@ use JD\DDD\Sales\ValueObject\ProductQuantity;
 
 final class Order
 {
-    private const MAX_ITEMS_IN_ORDER = 10;
-    private const ORDER_TAX_PERCENTAGE = 0.2;
+    public const MAX_ITEMS_IN_ORDER = 10;
+    public const ORDER_TAX_PERCENTAGE = 0.2;
 
     private Money $subTotals;
     private Money $totals;
@@ -41,9 +40,13 @@ final class Order
         );
     }
 
-    public function processOrderProductItemQty(Product $product, ProductQuantity $qty): void
+    /**
+     * @throws \DomainException
+     */
+    public function addOrderProductItem(Product $product, ProductQuantity $qty): void
     {
         $this->assertMaxQuantity($qty);
+        $this->assertStockQuantity($product, $qty);
         $this->assertCurrencyConsistency($product);
 
         $productId = $product->getProductId();
@@ -93,6 +96,16 @@ final class Order
         return $this->orderId;
     }
 
+    public function getSubTotals(): Money
+    {
+        return $this->subTotals;
+    }
+
+    public function getCustomerId(): CustomerId
+    {
+        return $this->customerId;
+    }
+
     private function assertMaxQuantity(ProductQuantity $orderProductQuantity): void
     {
         $totalItemQty = (int) \array_reduce(
@@ -101,7 +114,7 @@ final class Order
         );
 
         if ($totalItemQty + $orderProductQuantity->getQty() > self::MAX_ITEMS_IN_ORDER) {
-            throw new OrderDomainException(
+            throw new \DomainException(
                 \sprintf('Order max items \'%s\' number exceeded', self::MAX_ITEMS_IN_ORDER)
             );
         }
@@ -114,7 +127,7 @@ final class Order
         }
 
         foreach ($this->orderProductItems as $orderProductItem) {
-            if (!$orderProductItem->getProductPrice()->getCurrency()->equals($product->getProductPrice()->getCurrency())) {
+            if (!$orderProductItem->getLinePrice()->getCurrency()->equals($product->getProductPrice()->getCurrency())) {
                 throw new \DomainException('Order should not contain items in different currency prices');
             }
         }
@@ -122,12 +135,16 @@ final class Order
 
     private function recalculateTotals(): void
     {
+        if (0 === \count($this->orderProductItems)) {
+            throw new \DomainException('Order should contain at least 1 item');
+        }
+
         $calculatedPrice = 0;
 
-        $currency = $this->orderProductItems[0]->getProductPrice()->getCurrency();
+        $currency = $this->orderProductItems[0]->getLinePrice()->getCurrency();
 
         foreach ($this->orderProductItems as $orderProductItem) {
-            $calculatedPrice += $orderProductItem->getProductPrice()->getAmount();
+            $calculatedPrice += $orderProductItem->getLinePrice()->getAmount();
         }
 
         $this->subTotals = Money::fromAmountAndCurrency(
@@ -141,13 +158,10 @@ final class Order
         );
     }
 
-    public function getSubTotals(): Money
+    private function assertStockQuantity(Product $product, ProductQuantity $qty): void
     {
-        return $this->subTotals;
-    }
-
-    public function getCustomerId(): CustomerId
-    {
-        return $this->customerId;
+        if ($product->getProductQuantityInStock()->getQty() < $qty->getQty()) {
+            throw new \DomainException('There is no such amount of product in stock');
+        }
     }
 }

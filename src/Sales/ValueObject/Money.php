@@ -9,8 +9,6 @@ use JD\DDD\Common\ComparableInterface;
 
 final class Money implements ComparableInterface
 {
-    public const CURRENCY_USD = 'USD';
-    public const CURRENCY_EUR = 'EUR';
     private int $amount;
     private Currency $currency;
 
