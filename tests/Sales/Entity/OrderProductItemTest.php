@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sales\ValueObject;
+namespace Sales\Entity;
 
+use JD\DDD\Sales\Entity\OrderProductItem;
 use JD\DDD\Sales\ValueObject\Currency;
 use JD\DDD\Sales\ValueObject\Money;
-use JD\DDD\Sales\ValueObject\OrderProductItem;
-use JD\DDD\Sales\ValueObject\OrderProductItemId;
 use JD\DDD\Sales\ValueObject\ProductId;
 use JD\DDD\Sales\ValueObject\ProductQuantity;
 use PHPUnit\Framework\Attributes\DataProvider;

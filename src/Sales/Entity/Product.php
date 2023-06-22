@@ -27,7 +27,7 @@ final class Product
         Money $productPrice,
         ProductQuantity $productQuantity,
         ?ProductDescription $productDescription = null,
-    ) {
+    ): self {
         return new self(
             $productId,
             $productName,

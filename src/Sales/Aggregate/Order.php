@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace JD\DDD\Sales\Aggregate;
 
+use JD\DDD\Sales\Entity\OrderProductItem;
 use JD\DDD\Sales\Entity\Product;
 use JD\DDD\Sales\ValueObject\CustomerId;
 use JD\DDD\Sales\ValueObject\Money;
 use JD\DDD\Sales\ValueObject\OrderId;
-use JD\DDD\Sales\ValueObject\OrderProductItem;
 use JD\DDD\Sales\ValueObject\ProductId;
 use JD\DDD\Sales\ValueObject\ProductQuantity;
 

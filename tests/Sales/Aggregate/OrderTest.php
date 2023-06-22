@@ -42,8 +42,8 @@ class OrderTest extends TestCase
     {
         $this->expectExceptionMessage(
             \sprintf(
-            'Order max items \'%s\' number exceeded',
-            Order::MAX_ITEMS_IN_ORDER
+                'Order max items \'%s\' number exceeded',
+                Order::MAX_ITEMS_IN_ORDER
             )
         );
         $orderId = OrderId::fromString(self::VALID_ID);
@@ -108,7 +108,7 @@ class OrderTest extends TestCase
         $productQty2 = 3;
 
         $subTotals = ($productQty1*$productPrice1) + ($productQty2 * $productPrice2);
-        $totals = (int) ceil($subTotals + ($subTotals * Order::ORDER_TAX_PERCENTAGE));
+        $totals = (int) \ceil($subTotals + ($subTotals * Order::ORDER_TAX_PERCENTAGE));
 
         $product1 = $this->constructProduct(
             $productPrice1,
@@ -146,10 +146,10 @@ class OrderTest extends TestCase
         $productQty2 = 3;
 
         $subTotals1 = ($productQty1*$productPrice1) + ($productQty2 * $productPrice2);
-        $totals1 = (int) ceil($subTotals1 + ($subTotals1 * Order::ORDER_TAX_PERCENTAGE));
+        $totals1 = (int) \ceil($subTotals1 + ($subTotals1 * Order::ORDER_TAX_PERCENTAGE));
 
         $subTotals2 = $productQty2 * $productPrice2;
-        $totals2 = (int) ceil($subTotals2 + ($subTotals2 * Order::ORDER_TAX_PERCENTAGE));
+        $totals2 = (int) \ceil($subTotals2 + ($subTotals2 * Order::ORDER_TAX_PERCENTAGE));
 
         $product1 = $this->constructProduct(
             $productPrice1,
