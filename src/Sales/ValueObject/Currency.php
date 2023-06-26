@@ -30,6 +30,16 @@ final class Currency implements ComparableInterface
         return new self($isoCode);
     }
 
+    public static function fromUSD(): self
+    {
+        return new self(self::CURRENCY_USD);
+    }
+
+    public static function fromEUR(): self
+    {
+        return new self(self::CURRENCY_EUR);
+    }
+
     public function getIsoCode(): string
     {
         return $this->isoCode;

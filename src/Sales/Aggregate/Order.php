@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace JD\DDD\Sales\Aggregate;
 
+use JD\DDD\Common\DomainEventInterface;
+use JD\DDD\Sales\DomainEvent\OrderCreated;
+use JD\DDD\Sales\DomainEvent\OrderTotalsRecalculated;
 use JD\DDD\Sales\Entity\OrderProductItem;
 use JD\DDD\Sales\Entity\Product;
+use JD\DDD\Sales\ValueObject\Currency;
 use JD\DDD\Sales\ValueObject\CustomerId;
 use JD\DDD\Sales\ValueObject\Money;
 use JD\DDD\Sales\ValueObject\OrderId;
 use JD\DDD\Sales\ValueObject\ProductId;
 use JD\DDD\Sales\ValueObject\ProductQuantity;
 
+// Modifications to OrderProductItem is done only via aggregate root
 final class Order
 {
     public const MAX_ITEMS_IN_ORDER = 10;
@@ -20,14 +25,21 @@ final class Order
     private Money $subTotals;
     private Money $totals;
 
+    /** @var DomainEventInterface[] */
+    private array $domainEvents;
+
     /** @var OrderProductItem[] */
     private array $orderProductItems;
-
     private function __construct(
         public readonly OrderId $orderId,
         public readonly CustomerId $customerId,
     ) {
         $this->orderProductItems = [];
+        $this->totals = Money::fromCurrency(Currency::fromUSD());
+        $this->subTotals = Money::fromCurrency(Currency::fromUSD());
+
+        // @info: add totals recalculated domain event
+        $this->domainEvents = [new OrderCreated($this->orderId, $this->subTotals, $this->totals)];
     }
 
     public static function create(
@@ -156,6 +168,9 @@ final class Order
             (int) \ceil(($calculatedPrice * self::ORDER_TAX_PERCENTAGE) + $calculatedPrice),
             $currency
         );
+
+        // @info: add totals recalculated domain event
+        $this->domainEvents[] = new OrderTotalsRecalculated($this->orderId, $this->subTotals, $this->totals);
     }
 
     private function assertStockQuantity(Product $product, ProductQuantity $qty): void
@@ -163,5 +178,16 @@ final class Order
         if ($product->getProductQuantityInStock()->getQty() < $qty->getQty()) {
             throw new \DomainException('There is no such amount of product in stock');
         }
+    }
+
+    /**
+     * @return DomainEventInterface[]
+    */
+    public function releaseEvents(): array
+    {
+        $domainEvents = $this->domainEvents;
+        $this->domainEvents = [];
+
+        return $domainEvents;
     }
 }
