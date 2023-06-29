@@ -88,6 +88,11 @@ class Order
         $this->user = $user;
     }
 
+    public function setOrderItems(Collection $orderItems): void
+    {
+        $this->orderItems = $orderItems;
+    }
+
     private function recalculateSubTotals(): void
     {
         // Do some recalculation
