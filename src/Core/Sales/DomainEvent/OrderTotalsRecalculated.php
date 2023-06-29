@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Sales\DomainEvent;
+namespace JD\DDD\Core\Sales\DomainEvent;
 
-use Exception;
 use JD\DDD\Common\DomainEventInterface;
-use JD\DDD\Sales\ValueObject\Money;
-use JD\DDD\Sales\ValueObject\OrderId;
+use JD\DDD\Core\Sales\ValueObject\Money;
+use JD\DDD\Core\Sales\ValueObject\OrderId;
 
-final class OrderCreated implements DomainEventInterface
+final class OrderTotalsRecalculated implements DomainEventInterface
 {
     public function __construct(
         private readonly OrderId $orderId,

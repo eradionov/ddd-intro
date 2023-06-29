@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Sales\Entity;
+namespace JD\DDD\Core\Sales\Entity;
 
 use Assert\Assertion;
-use JD\DDD\Sales\ValueObject\Money;
-use JD\DDD\Sales\ValueObject\ProductId;
-use JD\DDD\Sales\ValueObject\ProductQuantity;
+use JD\DDD\Core\Sales\ValueObject\Money;
+use JD\DDD\Core\Sales\ValueObject\ProductId;
+use JD\DDD\Core\Sales\ValueObject\ProductQuantity;
 
 final class OrderProductItem
 {

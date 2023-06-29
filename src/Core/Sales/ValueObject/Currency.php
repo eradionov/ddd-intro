@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Sales\ValueObject;
+namespace JD\DDD\Core\Sales\ValueObject;
 
 use JD\DDD\Common\ComparableInterface;
 

@@ -2,25 +2,27 @@
 
 declare(strict_types=1);
 
-namespace JD\DDD\Sales\Aggregate;
+namespace JD\DDD\Core\Sales\Aggregate;
 
 use JD\DDD\Common\DomainEventInterface;
-use JD\DDD\Sales\DomainEvent\OrderCreated;
-use JD\DDD\Sales\DomainEvent\OrderTotalsRecalculated;
-use JD\DDD\Sales\Entity\OrderProductItem;
-use JD\DDD\Sales\Entity\Product;
-use JD\DDD\Sales\ValueObject\Currency;
-use JD\DDD\Sales\ValueObject\CustomerId;
-use JD\DDD\Sales\ValueObject\Money;
-use JD\DDD\Sales\ValueObject\OrderId;
-use JD\DDD\Sales\ValueObject\ProductId;
-use JD\DDD\Sales\ValueObject\ProductQuantity;
+use JD\DDD\Core\Sales\DomainEvent\OrderCreated;
+use JD\DDD\Core\Sales\DomainEvent\OrderTotalsRecalculated;
+use JD\DDD\Core\Sales\Entity\OrderProductItem;
+use JD\DDD\Core\Sales\Entity\Product;
+use JD\DDD\Core\Sales\ValueObject\Currency;
+use JD\DDD\Core\Sales\ValueObject\CustomerId;
+use JD\DDD\Core\Sales\ValueObject\Money;
+use JD\DDD\Core\Sales\ValueObject\OrderId;
+use JD\DDD\Core\Sales\ValueObject\ProductId;
+use JD\DDD\Core\Sales\ValueObject\ProductQuantity;
 
 // Modifications to OrderProductItem is done only via aggregate root
 final class Order
 {
     public const MAX_ITEMS_IN_ORDER = 10;
     public const ORDER_TAX_PERCENTAGE = 0.2;
+
+    private int $version;
 
     private Money $subTotals;
     private Money $totals;
@@ -37,6 +39,7 @@ final class Order
         $this->orderProductItems = [];
         $this->totals = Money::fromCurrency(Currency::fromUSD());
         $this->subTotals = Money::fromCurrency(Currency::fromUSD());
+        $this->version = 1;
 
         // @info: add totals recalculated domain event
         $this->domainEvents = [new OrderCreated($this->orderId, $this->subTotals, $this->totals)];
@@ -93,6 +96,14 @@ final class Order
     public function getTotals(): Money
     {
         return $this->totals;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVersion(): int
+    {
+        return $this->version;
     }
 
     /**

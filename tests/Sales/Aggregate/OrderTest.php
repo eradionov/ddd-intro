@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Sales\Aggregate;
 
-use JD\DDD\Sales\Aggregate\Order;
-use JD\DDD\Sales\Entity\Product;
-use JD\DDD\Sales\ValueObject\Currency;
-use JD\DDD\Sales\ValueObject\CustomerId;
-use JD\DDD\Sales\ValueObject\Money;
-use JD\DDD\Sales\ValueObject\OrderId;
-use JD\DDD\Sales\ValueObject\ProductId;
-use JD\DDD\Sales\ValueObject\ProductName;
-use JD\DDD\Sales\ValueObject\ProductQuantity;
+use JD\DDD\Core\Sales\Aggregate\Order;
+use JD\DDD\Core\Sales\Entity\Product;
+use JD\DDD\Core\Sales\ValueObject\Currency;
+use JD\DDD\Core\Sales\ValueObject\CustomerId;
+use JD\DDD\Core\Sales\ValueObject\Money;
+use JD\DDD\Core\Sales\ValueObject\OrderId;
+use JD\DDD\Core\Sales\ValueObject\ProductId;
+use JD\DDD\Core\Sales\ValueObject\ProductName;
+use JD\DDD\Core\Sales\ValueObject\ProductQuantity;
 use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase

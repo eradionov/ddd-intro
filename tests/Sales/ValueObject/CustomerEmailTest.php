@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sales\ValueObject;
 
-use JD\DDD\Sales\ValueObject\CustomerEmail;
+use JD\DDD\Core\Sales\ValueObject\CustomerEmail;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

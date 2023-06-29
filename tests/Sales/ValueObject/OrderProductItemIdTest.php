@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Sales\ValueObject;
 
-use JD\DDD\Sales\ValueObject\Currency;
-use JD\DDD\Sales\ValueObject\CustomerId;
-use JD\DDD\Sales\ValueObject\Money;
-use JD\DDD\Sales\ValueObject\OrderId;
-use JD\DDD\Sales\ValueObject\OrderProductItemId;
+use JD\DDD\Core\Sales\ValueObject\CustomerId;
+use JD\DDD\Core\Sales\ValueObject\OrderProductItemId;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

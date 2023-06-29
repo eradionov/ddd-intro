@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sales\ValueObject;
 
-use JD\DDD\Sales\ValueObject\Currency;
-use JD\DDD\Sales\ValueObject\Money;
+use JD\DDD\Core\Sales\ValueObject\Currency;
+use JD\DDD\Core\Sales\ValueObject\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
